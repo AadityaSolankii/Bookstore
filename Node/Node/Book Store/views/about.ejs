@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Our Bookstore</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-blue: #2563eb;
+      --brand-blue-hover: #1d4ed8;
+      --ink-dark: #0f172a;
+      --ink-muted: #64748b;
+      --border-subtle: #e2e8f0;
+      --bg-page: #f8fafc;
+      --font-serif: 'Source Serif 4', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--ink-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER */
+    .site-header {
+      background-color: var(--brand-blue);
+      color: #ffffff;
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.15);
+    }
+
+    .site-logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .site-nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* MAIN CONTENT */
+    .about-main {
+      flex: 1;
+      width: 100%;
+      padding: 60px 0 80px;
+    }
+
+    .content-wrap {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header Title Block */
+    .about-head {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand-blue);
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .about-head h1 {
+      font-family: var(--font-serif);
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--ink-dark);
+    }
+
+    .about-head p {
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    /* UNIFIED 2-COLUMN STORY CONTAINER */
+    .story-hero-wrapper {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+      margin-bottom: 36px;
+    }
+
+    /* Left Side: Elegant Deep Slate/Blue Editorial Panel */
+    .vision-panel {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .vision-panel::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    }
+
+    .panel-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #93c5fd;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .vision-panel h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .vision-panel p {
+      color: #94a3b8;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+
+    .pillar-strip {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 24px;
+    }
+
+    .pillar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pillar-item .icon {
+      font-size: 1.2rem;
+    }
+
+    .pillar-item span {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #f1f5f9;
+    }
+
+    /* Right Side: Mission & Why Choose Us */
+    .mission-panel {
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #ffffff;
+    }
+
+    .mission-panel h3 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--ink-dark);
+    }
+
+    .mission-panel p {
+      color: var(--ink-muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .mission-panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 3 FEATURE CARDS */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+      border-color: #cbd5e1;
+    }
+
+    .icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+    }
+
+    .icon-badge.blue   { background: #eff6ff; }
+    .icon-badge.green  { background: #ecfdf5; }
+    .icon-badge.purple { background: #faf5ff; }
+
+    .feature-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--ink-dark);
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background-color: var(--brand-blue);
+      color: #ffffff;
+      padding: 24px 36px 18px;
+      margin-top: auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand {
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-copy {
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      padding-top: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .story-hero-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .vision-panel, .mission-panel {
+        padding: 34px 28px;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-head h1 {
+        font-size: 2.4rem;
+      }
+      .pillar-strip {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="/" class="site-logo">Bookstore</a>
+    <nav class="site-nav">
+      <a href="/">Home</a>
+      <a href="/books">Books</a>
+      <a href="/category">Categories</a>
+      <a href="/cart">Cart</a>
+      <a href="/about" class="active">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/admin">Admin</a>
+    </nav>
+  </header>
+
+  <!-- MAIN ABOUT CONTENT -->
+  <main class="about-main">
+    <div class="content-wrap">
+
+      <!-- Header Section -->
+      <section class="about-head">
+        <span class="badge-pill">Behind the Shelf</span>
+        <h1>About Our Bookstore</h1>
+        <p>A quiet corner created for people who believe books inspire genuine learning, curiosity, and personal growth.</p>
+      </section>
+
+     <style>
+  /* UNIFIED LIGHT EDITORIAL STORY CONTAINER (Seamless with header/footer) */
+  .story-hero-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.04);
+    margin-bottom: 36px;
+  }
+
+  /* Left Panel: Clean Soft Ice-Blue (Harmonious with your Header) */
+  .vision-panel {
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    padding: 48px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .panel-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    padding: 5px 12px;
+    border-radius: 999px;
+    width: fit-content;
+    margin-bottom: 18px;
+  }
+
+  .vision-panel h2 {
+    font-family: var(--font-serif, Georgia, serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    color: #0f172a;
+  }
+
+  .vision-panel p {
+    color: #64748b;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+
+  .pillar-strip {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 22px;
+  }
+
+  .pillar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pillar-item .icon {
+    font-size: 1.15rem;
+  }
+
+  .pillar-item span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #334155;
+  }
+
+  /* Right Panel: Clean White Mission Content */
+  .mission-panel {
+    padding: 48px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+  }
+
+  .mission-panel h3 {
+    font-family: var(--font-serif, Georgia, serif);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #0f172a;
+  }
+
+  .mission-panel p {
+    color: #64748b;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .mission-panel p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 860px) {
+    .story-hero-wrapper {
+      grid-template-columns: 1fr;
+    }
+    .vision-panel {
+      border-right: none;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 34px 24px;
+    }
+    .mission-panel {
+      padding: 34px 24px;
+    }
+    .pillar-strip {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+</style>
+
+<!-- Balanced Harmonious Story Split -->
+<section class="story-hero-wrapper">
+  <!-- Left Side: Soft Off-White/Light-Blue Surface -->
+  <div class="vision-panel">
+    <div>
+      <span class="panel-tag">Our Vision</span>
+      <h2>Books open the door to new ideas.</h2>
+      <p>
+        We believe a great book isn’t just bound paper — it is a mirror, a compass, and a tool to widen your perspective. Crafted for curious minds who seek to explore new worlds every single day.
+      </p>
+    </div>
+
+    <div class="pillar-strip">
+      <div class="pillar-item">
+        <span class="icon">💡</span>
+        <span>Learn</span>
+      </div>
+      <div class="pillar-item">
+        <span class="icon">🧭</span>
+        <span>Explore</span>
+      </div>
+      <div class="pillar-item">
+        <span class="icon">🌱</span>
+        <span>Grow</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Clean Bright White Content -->
+  <div class="mission-panel">
+    <h3>Why Choose Our Bookstore?</h3>
+    <p>
+      We curate stories with purpose. In a world full of digital noise, having a dedicated physical book in your hands offers focus that screens simply cannot replace.
+    </p>
+    <p>
+      From bestselling fiction classics to mindset and career handbooks, every edition on our shelves is chosen with care to accompany you on your personal reading journey.
+    </p>
+  </div>
+</section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <span class="footer-brand">Bookstore</span>
+      <div class="footer-links">
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://x.com" target="_blank" rel="noopener">X</a>
+        <a href="mailto:support@bookstore.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 Bookstore. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+</html>

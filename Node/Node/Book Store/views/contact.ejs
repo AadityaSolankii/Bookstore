@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Bookstore</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Matching Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-blue: #2563eb;
+      --brand-blue-hover: #1d4ed8;
+      --font-serif: 'Source Serif 4', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+    }
+
+    .serif-title {
+      font-family: var(--font-serif);
+    }
+
+    /* Matching Header Styles */
+    .site-header {
+      background-color: var(--brand-blue);
+      color: #ffffff;
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.15);
+    }
+
+    .site-logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .site-nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* Matching Footer Styles */
+    .site-footer {
+      background-color: var(--brand-blue);
+      color: #ffffff;
+      padding: 24px 36px 18px;
+      margin-top: auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand {
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-copy {
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      padding-top: 14px;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Matching Navbar Header -->
+  <header class="site-header">
+    <a href="/" class="site-logo">Bookstore</a>
+    <nav class="site-nav">
+      <a href="/">Home</a>
+      <a href="/books">Books</a>
+      <a href="/category">Categories</a>
+      <a href="/cart">Cart</a>
+      <a href="/about">About</a>
+      <a href="/contact" class="active">Contact</a>
+      <a href="/admin">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Main Contact Content -->
+  <main class="max-w-6xl mx-auto px-5 py-12 flex-1 w-full">
+
+    <!-- Main Contact Content -->
+  <main class="max-w-2xl mx-auto px-5 py-12 flex-1 w-full">
+
+    <!-- Top Alert Messages -->
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="mb-8 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-3 shadow-xs">
+        <span class="text-xl">✅</span>
+        <p class="text-sm font-semibold">Your message has been sent successfully! Our team will reach back shortly.</p>
+      </div>
+    <% } %>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="mb-8 p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-center gap-3 shadow-xs">
+        <span class="text-xl">⚠️</span>
+        <p class="text-sm font-semibold">Failed to send message. Please verify your details and try again.</p>
+      </div>
+    <% } %>
+
+    <!-- Centered Form Card -->
+    <div class="bg-white border border-slate-200/80 rounded-3xl p-7 md:p-10 shadow-xs">
+      <div class="mb-8 text-center">
+        <span class="inline-block text-blue-600 font-bold uppercase tracking-wider text-xs bg-blue-50 border border-blue-100 px-3.5 py-1 rounded-full mb-3">
+          Get In Touch
+        </span>
+        <h1 class="serif-title text-3xl md:text-4xl font-bold text-slate-900">Send a Message</h1>
+        <p class="text-slate-500 text-sm mt-2">Fill in your information below to submit your inquiry.</p>
+      </div>
+
+      <form action="/contact" method="POST" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Your Full Name</label>
+          <input 
+            type="text" 
+            name="name" 
+            required 
+            placeholder="e.g. John Doe" 
+            class="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition"
+          >
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Email Address</label>
+            <input 
+              type="email" 
+              name="email" 
+              required 
+              placeholder="name@example.com" 
+              class="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Mobile Number</label>
+            <input 
+              type="tel" 
+              name="mob" 
+              required 
+              placeholder="+91 98765 43210" 
+              class="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition"
+            >
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Your Message / Order Note</label>
+          <textarea 
+            name="message" 
+            required 
+            rows="4" 
+            placeholder="Tell us what you need help with..." 
+            class="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition resize-y"
+          ></textarea>
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full text-sm transition shadow-sm hover:shadow-md cursor-pointer"
+        >
+          Send Message →
+        </button>
+      </form>
+    </div>
+
+  </main>
+
+  </main>
+
+  <!-- Matching Footer (Only Email) -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <span class="footer-brand">Bookstore</span>
+      <div class="footer-links">
+        <a href="mailto:support@bookstore.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 Bookstore. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
