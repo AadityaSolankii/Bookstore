@@ -93,19 +93,22 @@ app.get('/admin/logout', (req, res) => {
 const transport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
-    secure: true, // Port 465 SSL use karega (Render par timeout avoid karta hai)
+    secure: true,
     auth: {
         user: process.env.EMAIL_USER || 'solankiaditya77629@gmail.com',
         pass: process.env.EMAIL_PASS || 'rvkpxqacohgbotwi'
     },
     tls: {
         rejectUnauthorized: false
-    }
+    },
+    connectionTimeout: 10000, 
+    greetingTimeout: 10000,
+    socketTimeout: 15000
 });
 
-transport.verify((err, success) => {
+transport.verify((err) => {
     if (err) {
-        console.error("❌ Mail Transporter Error:", err.message);
+        console.error("❌ Mail Transporter Verify Error:", err.message);
     } else {
         console.log("✅ Mail server is ready to take messages");
     }
