@@ -1,6 +1,6 @@
 require('dotenv').config();
 const path = require("path");
-const fs = require("fs"); // <-- Added for checking image existence
+const fs = require("fs"); 
 const express = require('express');
 const session = require('express-session');
 const app = express();
@@ -88,7 +88,6 @@ app.get('/admin/logout', (req, res) => {
   });
 });
 
-// Transporter with .env fallback
 const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -100,7 +99,6 @@ const transport = nodemailer.createTransport({
     }
 });
 
-// Check if email transporter connection is valid on startup
 transport.verify((err, success) => {
     if (err) {
         console.error("❌ Mail Transporter Error:", err.message);
@@ -118,7 +116,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/books', async (req, res) => {
-    const books = await Book.find();
+    const books = await Book.find().sort({ _id: -1 });
     res.render('books', { books });
 });
 
@@ -254,7 +252,6 @@ app.post('/contact', (req, res) => {
         }).join('')
         : '<p style="margin: 0; color: #666;">No books selected.</p>';
 
-    // Filter attachments only if file actually exists on disk
     const attachments = cartItems
         .filter(item => {
             if (!item.image) return false;

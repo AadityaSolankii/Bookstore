@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | Bookstore</title>
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <!-- Matching Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,800&display=swap" rel="stylesheet">
@@ -29,7 +27,6 @@
       font-family: var(--font-serif);
     }
 
-    /* Matching Header Styles */
     .site-header {
       background-color: var(--brand-blue);
       color: #ffffff;
@@ -116,7 +113,6 @@
 
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-  <!-- Matching Navbar Header -->
   <header class="site-header">
     <a href="/" class="site-logo">Bookstore</a>
     <nav class="site-nav">
@@ -130,10 +126,8 @@
     </nav>
   </header>
 
-  <!-- Admin Dashboard Content -->
   <main class="max-w-4xl mx-auto px-5 py-12 flex-1 w-full">
     
-    <!-- Top Bar -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
       <div>
         <span class="inline-block text-blue-600 font-bold uppercase tracking-wider text-xs bg-blue-50 border border-blue-100 px-3.5 py-1 rounded-full mb-2">
@@ -153,10 +147,8 @@
       </a>
     </div>
 
-    <!-- Quick Action Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-      <!-- Card 1: Inventory -->
       <div class="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
         <div>
           <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl mb-4">
@@ -173,7 +165,6 @@
         </a>
       </div>
 
-      <!-- Card 2: Categories -->
       <div class="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
         <div>
           <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-2xl mb-4">
@@ -194,7 +185,6 @@
 
   </main>
 
-  <!-- Matching Footer (Only Email) -->
   <footer class="site-footer">
     <div class="footer-top">
       <span class="footer-brand">Bookstore</span>

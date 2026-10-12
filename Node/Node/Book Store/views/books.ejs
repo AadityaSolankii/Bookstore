@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explore Books | Bookstore</title>
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <!-- Same Typography as Home & About -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,800&display=swap" rel="stylesheet">
@@ -29,7 +27,6 @@
       font-family: var(--font-serif);
     }
 
-    /* Matching Header Styles */
     .site-header {
       background-color: var(--brand-blue);
       color: #ffffff;
@@ -72,7 +69,6 @@
       text-underline-offset: 4px;
     }
 
-    /* Matching Footer Styles */
     .site-footer {
       background-color: var(--brand-blue);
       color: #ffffff;
@@ -116,7 +112,6 @@
 
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-  <!-- Matching Navbar Header -->
   <header class="site-header">
     <a href="/" class="site-logo">Bookstore</a>
     <nav class="site-nav">
@@ -130,10 +125,9 @@
     </nav>
   </header>
 
-  <!-- Books Section -->
   <main class="max-w-7xl mx-auto px-5 py-12 flex-1 w-full">
 
-    <!-- Heading -->
+
     <div class="mb-10 text-center md:text-left">
       <span class="inline-block text-blue-600 font-bold uppercase tracking-wider text-xs bg-blue-50 border border-blue-100 px-3.5 py-1 rounded-full mb-3">
         Our Collection
@@ -146,7 +140,6 @@
       </p>
     </div>
 
-    <!-- Books Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
 
       <% books.forEach(book => { %>
@@ -164,7 +157,6 @@
             </div>
           </a>
 
-          <!-- Book Details -->
           <div class="p-5 flex-1 flex flex-col justify-between">
             <div>
               <!-- Category -->
@@ -172,14 +164,12 @@
                 <%= book.category %>
               </span>
 
-              <!-- Book Name -->
               <h2 class="text-lg font-bold text-slate-900 mb-2 line-clamp-1" title="<%= book.name %>">
                 <%= book.name %>
               </h2>
             </div>
 
             <div>
-              <!-- Price & Rating -->
               <div class="flex items-center justify-between my-4 pt-2 border-t border-slate-100">
                 <div>
                   <p class="text-xs text-slate-400 font-medium">Price</p>
@@ -193,7 +183,6 @@
                 </div>
               </div>
 
-              <!-- Buttons -->
               <div class="grid grid-cols-2 gap-2.5">
                 <a href="/books/edit/<%= book._id %>"
                    class="text-center border border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold py-2.5 rounded-xl text-sm transition">
@@ -217,7 +206,6 @@
 
   </main>
 
-  <!-- Matching Footer (With only Email, no Insta/FB/X) -->
   <footer class="site-footer">
     <div class="footer-top">
       <span class="footer-brand">Bookstore</span>

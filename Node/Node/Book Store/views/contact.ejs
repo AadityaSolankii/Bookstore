@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us | Bookstore</title>
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <!-- Matching Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,800&display=swap" rel="stylesheet">
@@ -29,7 +27,6 @@
       font-family: var(--font-serif);
     }
 
-    /* Matching Header Styles */
     .site-header {
       background-color: var(--brand-blue);
       color: #ffffff;
@@ -72,7 +69,6 @@
       text-underline-offset: 4px;
     }
 
-    /* Matching Footer Styles */
     .site-footer {
       background-color: var(--brand-blue);
       color: #ffffff;
@@ -116,7 +112,6 @@
 
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-  <!-- Matching Navbar Header -->
   <header class="site-header">
     <a href="/" class="site-logo">Bookstore</a>
     <nav class="site-nav">
@@ -130,13 +125,10 @@
     </nav>
   </header>
 
-  <!-- Main Contact Content -->
   <main class="max-w-6xl mx-auto px-5 py-12 flex-1 w-full">
 
-    <!-- Main Contact Content -->
   <main class="max-w-2xl mx-auto px-5 py-12 flex-1 w-full">
 
-    <!-- Top Alert Messages -->
     <% if (typeof success !== 'undefined' && success) { %>
       <div class="mb-8 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-3 shadow-xs">
         <span class="text-xl">✅</span>
@@ -151,7 +143,6 @@
       </div>
     <% } %>
 
-    <!-- Centered Form Card -->
     <div class="bg-white border border-slate-200/80 rounded-3xl p-7 md:p-10 shadow-xs">
       <div class="mb-8 text-center">
         <span class="inline-block text-blue-600 font-bold uppercase tracking-wider text-xs bg-blue-50 border border-blue-100 px-3.5 py-1 rounded-full mb-3">
@@ -221,7 +212,6 @@
 
   </main>
 
-  <!-- Matching Footer (Only Email) -->
   <footer class="site-footer">
     <div class="footer-top">
       <span class="footer-brand">Bookstore</span>

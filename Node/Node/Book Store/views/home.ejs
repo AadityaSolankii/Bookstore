@@ -5,15 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bookstore | Read More, Live Better</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,800;1,8..60,700&display=swap" rel="stylesheet">
 
   <style>
-    /* =========================================================
-       BASE VARIABLES & RESETS
-       ========================================================= */
     :root {
       --brand-blue: #2563eb;
       --brand-blue-hover: #1d4ed8;
@@ -42,9 +38,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* =========================================================
-       HEADER (EXACT ORIGINAL HEADER PRESERVED)
-       ========================================================= */
+
     .site-header {
       background-color: var(--brand-blue);
       color: #ffffff;
@@ -87,9 +81,6 @@
       text-underline-offset: 4px;
     }
 
-    /* =========================================================
-       MAIN CONTENT CONTAINER
-       ========================================================= */
     .home-content {
       flex: 1;
       width: 100%;
@@ -101,9 +92,7 @@
       padding: 0 24px;
     }
 
-    /* =========================================================
-       1. HERO SECTION
-       ========================================================= */
+  
     .hero-section {
       padding: 70px 0 80px;
       display: grid;
@@ -191,7 +180,6 @@
       border-color: #cbd5e1;
     }
 
-    /* Hero Media Stack */
     .hero-media {
       position: relative;
     }
@@ -235,9 +223,6 @@
       color: var(--ink-dark);
     }
 
-    /* =========================================================
-       2. EXPLORE BY CATEGORY
-       ========================================================= */
     .section-header {
       text-align: center;
       margin-bottom: 34px;
@@ -324,9 +309,7 @@
       transform: translateX(4px);
     }
 
-    /* =========================================================
-       3. UNIQUE FEATURE: BOOK EXCHANGE & PERKS STACK
-       ========================================================= */
+
     .exchange-block {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
@@ -427,7 +410,7 @@
       background: var(--brand-blue);
     }
 
-    /* Stacked Perks Column */
+    
     .perks-list {
       display: flex;
       flex-direction: column;
@@ -479,9 +462,7 @@
       margin: 0;
     }
 
-    /* =========================================================
-       4. CLEAN BOTTOM CTA STRIP
-       ========================================================= */
+
     .catalog-cta-strip {
       background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 60%, #3b82f6 100%);
       border-radius: 22px;
@@ -525,9 +506,7 @@
       transform: translateY(-2px);
     }
 
-    /* =========================================================
-       FOOTER (EXACT ORIGINAL FOOTER PRESERVED)
-       ========================================================= */
+
     .site-footer {
       background-color: var(--brand-blue);
       color: #ffffff;
@@ -572,9 +551,7 @@
       padding-top: 14px;
     }
 
-    /* =========================================================
-       RESPONSIVE BREAKPOINTS
-       ========================================================= */
+
     @media (max-width: 920px) {
       .hero-section {
         grid-template-columns: 1fr;
@@ -609,7 +586,6 @@
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="site-header">
     <a href="/" class="site-logo">Bookstore</a>
     <nav class="site-nav">
@@ -623,11 +599,9 @@
     </nav>
   </header>
 
-  <!-- MAIN BODY -->
   <main class="home-content">
     <div class="content-wrap">
 
-      <!-- 1. Hero Section -->
       <section class="hero-section">
         <div class="hero-text-side">
           <span class="badge-pill">Find Your Next Book</span>
@@ -654,7 +628,6 @@
         </div>
       </section>
 
-      <!-- 2. Explore by Category -->
       <section>
         <div class="section-header">
           <h2 class="section-title">Explore by Category</h2>
@@ -662,7 +635,6 @@
         </div>
 
      <div class="category-grid">
-  <!-- 1. Literary Fiction -->
   <a href="/category/Literary%20Fiction" class="category-item">
     <div class="cat-icon-wrap blue">📖</div>
     <div class="cat-details">
@@ -672,7 +644,6 @@
     <span class="cat-arrow-icon">→</span>
   </a>
 
-  <!-- 2. Fantasy -->
   <a href="/category/Fantasy" class="category-item">
     <div class="cat-icon-wrap green">🪄</div>
     <div class="cat-details">
@@ -682,7 +653,6 @@
     <span class="cat-arrow-icon">→</span>
   </a>
 
-  <!-- 3. Finance -->
   <a href="/category/Finance" class="category-item">
     <div class="cat-icon-wrap amber">📈</div>
     <div class="cat-details">
@@ -698,7 +668,6 @@
         
 
           
-      <!-- 3. Unique Feature: Reader Exchange & Stacked Perks -->
       <section class="exchange-block">
         <!-- Exchange Card -->
         <div class="exchange-banner-card">
@@ -728,7 +697,6 @@
           <a href="/books" class="btn-exchange">Explore Exchange Shelf →</a>
         </div>
 
-        <!-- Vertical Perks List -->
         <div class="perks-list">
           <div class="perk-row-item">
             <div class="perk-badge indigo">🔖</div>
@@ -756,7 +724,6 @@
         </div>
       </section>
 
-      <!-- 4. Clean Bottom CTA Strip -->
       <section class="catalog-cta-strip">
         <div class="cta-text-side">
           <h3>Looking for something specific?</h3>
@@ -768,7 +735,6 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-top">
       <span class="footer-brand">Bookstore</span>
