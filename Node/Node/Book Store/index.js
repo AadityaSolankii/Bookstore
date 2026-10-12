@@ -91,19 +91,13 @@ app.get('/admin/logout', (req, res) => {
 });
 
 const transport = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    host: 'smtp-relay.brevo.com',
+    port: 587,
+    secure: false, // TLS via port 587
     auth: {
-        user: process.env.EMAIL_USER || 'solankiaditya77629@gmail.com',
-        pass: process.env.EMAIL_PASS || 'rvkpxqacohgbotwi'
-    },
-    tls: {
-        rejectUnauthorized: false
-    },
-    connectionTimeout: 10000, 
-    greetingTimeout: 10000,
-    socketTimeout: 15000
+        user: process.env.BREVO_USER || 'solankiaditya77629@gmail.com',
+        pass: process.env.BREVO_PASS || 'xsmtpsib-6786d304eeb89c10df978c20e9591145319ed561dbd3ef828d0c0894f921a13c-Qc03asymdX0DED09'
+    }
 });
 
 transport.verify((err) => {
@@ -272,8 +266,9 @@ app.post('/contact', (req, res) => {
         }));
 
     transport.sendMail({
-        from: process.env.EMAIL_USER || 'solankiaditya77629@gmail.com',
+        from: '"Bookstore Inquiry" <solankiaditya77629@gmail.com>',
         to: 'solankiaditya77629@gmail.com',
+        replyTo: email,
         subject: 'New Customer Message',
         html: `
             <div style="font-family: Arial, sans-serif; background: #f5f5f5; padding: 24px; color: #111;">
