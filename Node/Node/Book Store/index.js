@@ -91,7 +91,9 @@ app.get('/admin/logout', (req, res) => {
 });
 
 const transport = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Port 465 SSL use karega (Render par timeout avoid karta hai)
     auth: {
         user: process.env.EMAIL_USER || 'solankiaditya77629@gmail.com',
         pass: process.env.EMAIL_PASS || 'rvkpxqacohgbotwi'
