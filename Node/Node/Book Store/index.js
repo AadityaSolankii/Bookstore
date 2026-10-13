@@ -25,18 +25,20 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
 async function main() {
-    await mongoose.connect
-    ('mongodb+srv://solankiaditya77629_db_user:<db_password>@cluster0.oxt9hi3.mongodb.net/');
-    console.log("DB Connected");
+    await mongoose.connect(
+        'mongodb+srv://admin:admin%401234@cluster0.oxt9hi3.mongodb.net/bookstore?retryWrites=true&w=majority'
+    );
+    console.log("✅ DB Connected Successfully");
+
     app.listen(PORT, () => {
-        console.log("Listening on " + PORT);
+        console.log("🚀 Server listening on port " + PORT);
     });
 }
 
+main().catch((err) => {
+    console.error("❌ DB Connection Error:", err);
+});
 
-main()
-  .then(() => { console.log('DB Connected'); })
-  .catch((err) => { console.log(err); });
 
 const bookSchema = new mongoose.Schema({
     name: String,
@@ -63,7 +65,6 @@ const escapeHtml = (value = '') => String(value)
     .replace(/'/g, '&#039;');
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
 
 app.get('/admin', (req, res) => {
     res.render('adminlogin', { error: null });
@@ -71,20 +72,27 @@ app.get('/admin', (req, res) => {
 
 app.post('/admin/login', (req, res) => {
   const username = req.body.username?.trim();
-  const password = req.body.password;
+  const password = req.body.password?.trim();
 
-  if (!username || !password?.trim()) {
+  console.log("👉 Form submitted with:", { username, password });
+  console.log("👉 Expected from .env:", { 
+    envUser: process.env.ADMIN_USER, 
+    envPass: process.env.ADMIN_PASS 
+  });
+
+  if (!username || !password) {
     return res.status(400).render('adminlogin', { error: 'Please enter both username and password.' });
   }
 
-  if (username !== process.env.ADMIN_USER || password !== process.env.ADMIN_PASS) {
+  if (username !== String(process.env.ADMIN_USER).trim() || password !== String(process.env.ADMIN_PASS).trim()) {
     return res.status(401).render('adminlogin', { error: 'Invalid username or password.' });
   }
 
+  req.session.isAdmin = true;
   res.redirect('/admin/dashboard');
 });
 
-app.get('/admin/dashboard', (req, res) => {
+app.get('/admin/dashboard', requireAdmin, (req, res) => {
   res.render('admin');
 });
 
@@ -95,12 +103,10 @@ app.get('/admin/logout', (req, res) => {
 });
 
 const transport = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 587,
-    secure: false,
+    service: 'gmail',
     auth: {
-        user: process.env.BREVO_USER || 'solankiaditya77629@gmail.com',
-        pass: process.env.BREVO_PASS || 'xsmtpsib-6786d304eeb89c10df978c20e9591145319ed561dbd3ef828d0c0894f921a13c-Qc03asymdX0DED09'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     },
     tls: {
         rejectUnauthorized: false
@@ -315,8 +321,4 @@ app.post('/books/delete/:id', async (req, res) => {
     const bookId = req.params.id;
     await Book.findByIdAndDelete(bookId);
     res.redirect('/books');
-});
-
-app.listen(PORT, () => {
-    console.log("Listening on " + PORT);
 });
