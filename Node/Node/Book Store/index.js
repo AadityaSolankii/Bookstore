@@ -25,10 +25,14 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
 async function main() {
-    // NAYA CODE:
-const dbUrl = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/bookstore';
-await mongoose.connect(dbUrl);
+    await mongoose.connect
+    ('mongodb+srv://solankiaditya77629_db_user:<db_password>@cluster0.oxt9hi3.mongodb.net/');
+    console.log("DB Connected");
+    app.listen(PORT, () => {
+        console.log("Listening on " + PORT);
+    });
 }
+
 
 main()
   .then(() => { console.log('DB Connected'); })
@@ -93,10 +97,13 @@ app.get('/admin/logout', (req, res) => {
 const transport = nodemailer.createTransport({
     host: 'smtp-relay.brevo.com',
     port: 587,
-    secure: false, // TLS via port 587
+    secure: false,
     auth: {
         user: process.env.BREVO_USER || 'solankiaditya77629@gmail.com',
         pass: process.env.BREVO_PASS || 'xsmtpsib-6786d304eeb89c10df978c20e9591145319ed561dbd3ef828d0c0894f921a13c-Qc03asymdX0DED09'
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
