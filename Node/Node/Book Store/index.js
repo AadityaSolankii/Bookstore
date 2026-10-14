@@ -23,6 +23,7 @@ const PORT = Number(process.env.PORT) || 3000;
 
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
 
 async function main() {
     await mongoose.connect(
@@ -102,23 +103,19 @@ app.get('/admin/logout', (req, res) => {
   });
 });
 
-const transport = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
+const oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    'http://localhost:3000/oauth2callback'
+);
+
+oauth2Client.setCredentials({
+    refresh_token: process.env.GOOGLE_REFRESH_TOKEN
 });
 
-transport.verify((err) => {
-    if (err) {
-        console.error("❌ Mail Transporter Verify Error:", err.message);
-    } else {
-        console.log("✅ Mail server is ready to take messages");
-    }
+const gmail = google.gmail({
+    version: 'v1',
+    auth: oauth2Client
 });
 
 app.get('/', (req, res) => {
@@ -239,7 +236,7 @@ app.get('/contact', (req, res) => {
     res.render('contact', { success, error });
 });
 
-app.post('/contact', (req, res) => {
+app.post('/contact', async (req, res) => {
     console.log("CONTACT FORM SUBMITTED");
     console.log("Received fields:", Object.keys(req.body));
     const name = req.body.name;
@@ -280,43 +277,64 @@ app.post('/contact', (req, res) => {
             cid: `book-${String(item._id)}`
         }));
 
-    transport.sendMail({
-        from: '"Bookstore Inquiry" <solankiaditya77629@gmail.com>',
-        to: 'solankiaditya77629@gmail.com',
-        replyTo: email,
-        subject: 'New Customer Message',
-        html: `
-            <div style="font-family: Arial, sans-serif; background: #f5f5f5; padding: 24px; color: #111;">
-                <div style="max-width: 700px; margin: 0 auto; background: #ffffff; border-radius: 14px; overflow: hidden; border: 1px solid #e7e7e7;">
-                    <div style="background: linear-gradient(135deg, #202124, #3c4043); color: #fff; padding: 20px 24px; font-size: 24px; font-weight: 700;">
-                        New Customer Message
-                    </div>
+ const rawMessage = [
+    `From: "Bookstore Inquiry" <${process.env.EMAIL_USER}>`,
+    `To: ${process.env.EMAIL_USER}`,
+    `Reply-To: ${email}`,
+    `Subject: New Customer Message`,
+    'MIME-Version: 1.0',
+    'Content-Type: text/html; charset="UTF-8"',
+    '',
+    `
+        <div style="font-family: Arial, sans-serif; background: #f5f5f5; padding: 24px; color: #111;">
+            <div style="max-width: 700px; margin: 0 auto; background: #ffffff; border-radius: 14px; overflow: hidden; border: 1px solid #e7e7e7;">
+                <div style="background: linear-gradient(135deg, #202124, #3c4043); color: #fff; padding: 20px 24px; font-size: 24px; font-weight: 700;">
+                    New Customer Message
+                </div>
 
-                    <div style="padding: 22px 24px 8px;">
-                        <div style="margin-bottom: 14px;"><strong>Name:</strong> ${escapeHtml(name)}</div>
-                        <div style="margin-bottom: 14px;"><strong>Email:</strong> ${escapeHtml(email)}</div>
-                        <div style="margin-bottom: 14px;"><strong>Mobile:</strong> ${escapeHtml(mobile)}</div>
-                        <div style="margin-bottom: 18px;"><strong>Message:</strong> ${escapeHtml(message)}</div>
-                    </div>
+                <div style="padding: 22px 24px 8px;">
+                    <div style="margin-bottom: 14px;"><strong>Name:</strong> ${escapeHtml(name)}</div>
+                    <div style="margin-bottom: 14px;"><strong>Email:</strong> ${escapeHtml(email)}</div>
+                    <div style="margin-bottom: 14px;"><strong>Mobile:</strong> ${escapeHtml(mobile)}</div>
+                    <div style="margin-bottom: 18px;"><strong>Message:</strong> ${escapeHtml(message)}</div>
+                </div>
 
-                    <div style="padding: 0 24px 24px;">
-                        <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px; color: #1f1f1f;">Books in Cart</div>
-                        ${cartHtml}
+                <div style="padding: 0 24px 24px;">
+                    <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px; color: #1f1f1f;">
+                        Books in Cart
                     </div>
+                    ${cartHtml}
                 </div>
             </div>
-        `,
-        attachments
-    }, (error, info) => {
-        if (error) {
-            console.error("❌ SendMail Error:", error);
-            return res.redirect('/contact?error=1');
-        }
+        </div>
+    `
+].join('\r\n');
 
-        console.log("✅ Email sent successfully:", info.response);
-        app.locals.cart = [];
-        return res.redirect('/contact?success=1');
+const encodedMessage = Buffer.from(rawMessage)
+    .toString('base64')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+try {
+    const result = await gmail.users.messages.send({
+        userId: 'me',
+        requestBody: {
+            raw: encodedMessage
+        }
     });
+
+    console.log("✅ Email sent successfully via Gmail API:", result.data.id);
+
+    app.locals.cart = [];
+
+    return res.redirect('/contact?success=1');
+
+} catch (error) {
+    console.error("❌ Gmail API Send Error:", error.message);
+
+    return res.redirect('/contact?error=1');
+}   
 });
 
 app.post('/books/delete/:id', async (req, res) => {

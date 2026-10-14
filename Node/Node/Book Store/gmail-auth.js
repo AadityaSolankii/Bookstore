@@ -1,8 +1,8 @@
 const { google } = require('googleapis');
 const readline = require('readline');
 
-const CLIENT_ID = '240511671334-u0uns5d0fh71l6tt5c9ifakcs89tg3n7.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
