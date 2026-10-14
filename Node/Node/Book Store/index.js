@@ -131,7 +131,8 @@ app.get('/about', (req, res) => {
 
 app.get('/books', async (req, res) => {
     const books = await Book.find().sort({ _id: -1 });
-    res.render('books', { books });
+    const isAdmin = Boolean(req.session && req.session.isAdmin);
+    res.render('books', { books, isAdmin });
 });
 
 app.get('/books/add-to-cart/:id', async (req, res) => {
@@ -185,16 +186,15 @@ app.get('/cart/decrease/:id', (req, res) => {
     res.redirect('/cart');
 });
 
-app.get('/books/edit/:id', async (req, res) => {
+app.get('/books/edit/:id', requireAdmin, async (req, res) => {
     const book = await Book.findById(req.params.id);
     if (!book) {
         return res.redirect('/books');
     }
-
     res.render('editbook', { book });
 });
 
-app.post('/books/edit/:id', async (req, res) => {
+app.post('/books/edit/:id', requireAdmin, async (req, res) => {
     const { name, title, author, price, category, image } = req.body;
 
     const updatedData = {
@@ -209,7 +209,7 @@ app.post('/books/edit/:id', async (req, res) => {
         updatedData.image = image.trim();
     }
 
-    await Book.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+    await Book.findByIdAndUpdate(req.params.id, updatedData, { returnDocument: 'after' });
     res.redirect('/books');
 });
 
@@ -217,7 +217,8 @@ app.get('/category', async (req, res) => {
     const books = await Book.find();
     const allBooks = await Book.find();
     const categoriesList = [...new Set(allBooks.map(book => book.category))];
-    res.render('categories', { books, category: 'All', categories: categoriesList });
+    const isAdmin = Boolean(req.session && req.session.isAdmin);
+    res.render('categories', { books, category: 'All', categories: categoriesList, isAdmin });
 });
 
 app.get('/category/:category', async (req, res) => {
@@ -228,7 +229,8 @@ app.get('/category/:category', async (req, res) => {
     });
     const allBooks = await Book.find();
     const categoriesList = [...new Set(allBooks.map(book => book.category))];
-    res.render('categories', { books, category, categories: categoriesList });
+    const isAdmin = Boolean(req.session && req.session.isAdmin);
+    res.render('categories', { books, category, categories: categoriesList, isAdmin });
 });
 
 app.get('/contact', (req, res) => {
