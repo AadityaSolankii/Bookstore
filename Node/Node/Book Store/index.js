@@ -127,9 +127,49 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/books', async (req, res) => {
-    const books = await Book.find().sort({ _id: -1 });
-    const isAdmin = Boolean(req.session && req.session.isAdmin);
-    res.render('books', { books, isAdmin });
+    const books = await Book.find();
+
+    res.render('books', {
+        books,
+        isAdmin: false
+    });
+});
+
+app.get('/admin/books', requireAdmin, async (req, res) => {
+    const books = await Book.find();
+
+    res.render('books', {
+        books,
+        isAdmin: true
+    });
+});
+
+app.get('/admin/category/:category', requireAdmin, async (req, res) => {
+    const category = req.params.category;
+
+    const escapedCategory = category
+        .trim()
+        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const books = await Book.find({
+        category: {
+            $regex: `^${escapedCategory}$`,
+            $options: 'i'
+        }
+    });
+
+    const allBooks = await Book.find();
+
+    const categoriesList = [
+        ...new Set(allBooks.map(book => book.category))
+    ];
+
+    res.render('categories', {
+        books,
+        category,
+        categories: categoriesList,
+        isAdmin: true
+    });
 });
 
 app.get('/books/add-to-cart/:id', async (req, res) => {
@@ -213,21 +253,61 @@ app.post('/books/edit/:id', requireAdmin, async (req, res) => {
 app.get('/category', async (req, res) => {
     const books = await Book.find();
     const allBooks = await Book.find();
-    const categoriesList = [...new Set(allBooks.map(book => book.category))];
-    const isAdmin = Boolean(req.session && req.session.isAdmin);
-    res.render('categories', { books, category: 'All', categories: categoriesList, isAdmin });
+
+    const categoriesList = [
+        ...new Set(allBooks.map(book => book.category))
+    ];
+
+    res.render('categories', {
+        books,
+        category: 'All',
+        categories: categoriesList,
+        isAdmin: false
+    });
 });
 
 app.get('/category/:category', async (req, res) => {
     const category = req.params.category;
-    const escapedCategory = category.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const escapedCategory = category
+        .trim()
+        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
     const books = await Book.find({
-        category: { $regex: `^${escapedCategory}$`, $options: 'i' }
+        category: {
+            $regex: `^${escapedCategory}$`,
+            $options: 'i'
+        }
     });
+
     const allBooks = await Book.find();
-    const categoriesList = [...new Set(allBooks.map(book => book.category))];
-    const isAdmin = Boolean(req.session && req.session.isAdmin);
-    res.render('categories', { books, category, categories: categoriesList, isAdmin });
+
+    const categoriesList = [
+        ...new Set(allBooks.map(book => book.category))
+    ];
+
+    res.render('categories', {
+        books,
+        category,
+        categories: categoriesList,
+        isAdmin: false
+    });
+});
+
+app.get('/admin/category', requireAdmin, async (req, res) => {
+    const books = await Book.find();
+    const allBooks = await Book.find();
+
+    const categoriesList = [
+        ...new Set(allBooks.map(book => book.category))
+    ];
+
+    res.render('categories', {
+        books,
+        category: 'All',
+        categories: categoriesList,
+        isAdmin: true
+    });
 });
 
 app.get('/contact', (req, res) => {
@@ -337,8 +417,15 @@ try {
 }   
 });
 
-app.post('/books/delete/:id', async (req, res) => {
-    const bookId = req.params.id;
-    await Book.findByIdAndDelete(bookId);
-    res.redirect('/books');
+app.post('/books/delete/:id', requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        await Book.findByIdAndDelete(id);
+
+        res.redirect('/admin/books');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Failed to delete book');
+    }
 });
